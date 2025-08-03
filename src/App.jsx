@@ -4,6 +4,7 @@ import Filter from "./Components/Filter";
 
 function isValidURL(string) {
   try {
+    if (string.startsWith("/img/")) return true;
     new URL(string);
     return true;
   } catch {
@@ -20,15 +21,13 @@ export default function App() {
           {
             title: "Inception",
             description: "A thief who steals corporate secrets...",
-            posterURL:
-              "/img/inception.jpg",
+            posterURL: "/img/inception.jpg",
             rating: 5,
           },
           {
             title: "Interstellar",
             description: "A team of explorers travel through a wormhole...",
-            posterURL:
-              "img/inste.webp",
+            posterURL: "/img/stars-1837306_1280.jpg",
             rating: 4,
           },
         ];
@@ -52,7 +51,9 @@ export default function App() {
     const matchesTitle = movie.title
       .toLowerCase()
       .includes(titleFilter.toLowerCase());
-    const matchesRating = ratingFilter ? movie.rating >= Number(ratingFilter) : true;
+    const matchesRating = ratingFilter
+      ? movie.rating >= Number(ratingFilter)
+      : true;
     return matchesTitle && matchesRating;
   });
 
@@ -82,8 +83,10 @@ export default function App() {
   }
 
   return (
-    <div className="max-w-5xl mx-auto p-6">
-      <h1 className="text-3xl font-bold text-center">My Movie App</h1>
+    <div className="max-w-5xl mx-auto p-6 bg-gradient-to-r from-indigo-100 via-purple-100 to-pink-100 min-h-screen">
+      <h1 className="text-4xl font-extrabold text-center text-indigo-900 mb-8 drop-shadow-lg">
+        🎬 My Movie App
+      </h1>
 
       <Filter
         titleFilter={titleFilter}
@@ -94,16 +97,16 @@ export default function App() {
 
       <form
         onSubmit={handleAddMovie}
-        className="mt-8 bg-gray-100 p-6 rounded-md space-y-4"
+        className="bg-white p-8 rounded-xl shadow-lg max-w-xl mx-auto space-y-6 mt-10"
       >
-        <h2 className="text-xl font-semibold">Add a New Movie</h2>
+        <h2 className="text-xl font-semibold text-indigo-700">Add a New Movie</h2>
 
         <input
           type="text"
           placeholder="Title"
           value={newMovie.title}
           onChange={(e) => setNewMovie({ ...newMovie, title: e.target.value })}
-          className="w-full border rounded px-3 py-2"
+          className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
         />
         <input
           type="text"
@@ -112,7 +115,7 @@ export default function App() {
           onChange={(e) =>
             setNewMovie({ ...newMovie, description: e.target.value })
           }
-          className="w-full border rounded px-3 py-2"
+          className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
         />
         <input
           type="text"
@@ -121,14 +124,14 @@ export default function App() {
           onChange={(e) =>
             setNewMovie({ ...newMovie, posterURL: e.target.value })
           }
-          className="w-full border rounded px-3 py-2"
+          className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
         />
         <select
           value={newMovie.rating}
           onChange={(e) =>
             setNewMovie({ ...newMovie, rating: Number(e.target.value) })
           }
-          className="w-full border rounded px-3 py-2"
+          className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
         >
           {[1, 2, 3, 4, 5].map((r) => (
             <option key={r} value={r}>
@@ -139,7 +142,7 @@ export default function App() {
 
         <button
           type="submit"
-          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+          className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 rounded-lg transition"
         >
           Add Movie
         </button>
